@@ -1,112 +1,106 @@
 package com.example.myapplication.ui.main.home.newclothe
 
 import android.content.Intent
+import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import androidx.core.content.ContextCompat.startActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentNewBinding
+import com.example.myapplication.db.remote.model.DressHomeDto
+import com.example.myapplication.db.remote.model.DressLikeDto
+import com.example.myapplication.db.remote.model.DressOverviewDto
+import com.example.myapplication.db.remote.model.UpdateDressLikeDto
 import com.example.myapplication.ui.base.BaseFragment
-import com.example.myapplication.ui.main.ItemClickInterface
-import com.example.myapplication.ui.main.home.Clothes
-import com.example.myapplication.ui.main.home.clothesList
-import com.example.myapplication.ui.main.home.newclothesList
+import com.example.myapplication.ui.ItemCardClickInterface
+import com.example.myapplication.ui.main.home.recent.HomeRecommendAdapter
+import com.example.myapplication.ui.storecloth.clothdetail.ClothActivity
 import com.example.myapplication.ui.storecloth.storedetail.StoreActivity
+import com.example.myapplication.viewmodel.DressViewModel
+import com.example.myapplication.viewmodel.HomeViewModel
 
 
-class NewFragment : BaseFragment<FragmentNewBinding>(R.layout.fragment_new) ,
-    ItemClickInterface {
+class NewFragment : BaseFragment<FragmentNewBinding>(R.layout.fragment_new),
+    ItemCardClickInterface {
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var dressViewModel: DressViewModel
+    private lateinit var fragmentadapter: HomeRecommendAdapter
 
-//    lateinit var fragmentadapter : CardViewAdapter
+    private var update_islikedata_id: Int? = null
+    private var update_list_position: Int? = null
+    private var newData = ArrayList<DressOverviewDto>()
+
     override fun init() {
-    initAppbar(binding.newToolbar, "NEW",true,false)
-//        rcView()
+        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+        dressViewModel = ViewModelProvider(requireActivity()).get(DressViewModel::class.java)
+
+        initAppbar(binding.newToolbar, "NEW", true, false)
+        initRecyclerView()
+
+//        dressViewModel.dress_like_data.observe(viewLifecycleOwner, Observer<List<DressLikeDto>> {
+////            if (update_list_position != null) {
+////                newData[update_list_position!!].dress_like =
+////                    !newData[update_list_position!!].dress_like!!
+//////                    newAdapter.submitList(newData.toMutableList())
+////                fragmentadapter.notifyItemChanged(update_list_position!!)
+////
+////                update_list_position = null
+////            }
+//        })
     }
 
-    private fun addClothes(){
-        val clothes1= Clothes(
-            R.drawable.one,
-            "store1",
-            "옷1",
-            30000,
-            false
-        )
-        clothesList.add(clothes1)
-        newclothesList.add(clothes1)
+    private fun initRecyclerView() {
+        fragmentadapter = HomeRecommendAdapter(this@NewFragment)
 
-        val clothes2= Clothes(
-            R.drawable.two,
-            "store2",
-            "옷2",
-            30000,
-            false
-        )
-        clothesList.add(clothes2)
-        newclothesList.add(clothes1)
+        homeViewModel.home_new_data.observe(
+            viewLifecycleOwner,
+            Observer<List<DressOverviewDto>> { now_home_newdata ->
+                if (now_home_newdata != null) {
+                    newData = now_home_newdata as ArrayList<DressOverviewDto>
+                    fragmentadapter.submitList(now_home_newdata)
+//                    fragmentadapter.deleteData()
+//                    fragmentadapter.updateData(now_home_newdata as ArrayList<DressOverviewDto>)
+//                    fragmentadapter.notifyDataSetChanged()
+                } else {
+                    Log.d("whatisthis", "now_home_newdata, 없음")
+//                    fragmentadapter.deleteData()
+                    fragmentadapter.submitList(null)
+                }
+            })
 
-        val clothes3= Clothes(
-            R.drawable.two,
-            "store1",
-            "옷3",
-            30000,
-            false
-        )
-        clothesList.add(clothes3)
-        newclothesList.add(clothes1)
-
-        val clothes4= Clothes(
-            R.drawable.one,
-            "store1",
-            "옷4",
-            30000,
-            false
-        )
-        clothesList.add(clothes4)
-        newclothesList.add(clothes1)
-
-        val clothes5= Clothes(
-            R.drawable.two,
-            "store1",
-            "옷5",
-            30000,
-            false
-        )
-        clothesList.add(clothes5)
-        newclothesList.add(clothes1)
-
+        binding.newRecyclerView.apply {
+            layoutManager = GridLayoutManager(this.context, 2)
+            adapter = fragmentadapter
+        }
     }
 
-//    private fun rcView(){
-//        addClothes()
-//        fragmentadapter = CardViewAdapter(this@NewFragment)
-//        binding.newRecyclerView.apply {
-//            layoutManager= GridLayoutManager(this.context,2)
-//            adapter=fragmentadapter
-//            fragmentadapter.submitList(newclothesList.toMutableList())
-//
-//        }
-//    }
-
-    override fun onItemImageClick(id: Int, position: Int) {
-        //     val intent = Intent(getActivity(), ClothActivity::class.java)
-        //    startActivity(intent)
+    override fun onItemClothImageClick(id: Int, position: Int) {
+        val intent = Intent(getActivity(), ClothActivity::class.java)
+        intent.putExtra("cloth_id", id)
+        startActivity(intent)
     }
 
     override fun onItemStoreNameClick(id: Int, position: Int) {
         val intent = Intent(getActivity(), StoreActivity::class.java)
+        intent.putExtra("store_id", id)
         startActivity(intent)
     }
 
-    override fun onItemFavoriteClick(id: Int, position: Int) {
-//        if (newclothesList[position].like == false) {
-//            //화면에 보여주기
-//            Glide.with(this@NewFragment)
-//                .load(R.drawable.icon_favorite_filledpink) //이미지
-//                .into(view.findViewById<ImageButton>(R.id.card_imagebutton_favorite)) //보여줄 위치
-//            newclothesList[position].like = true
-//        } else {
-//            //화면에 보여주기
-//            Glide.with(this@NewFragment)
-//                .load(R.drawable.icon_favorite_whiteline) //이미지
-//                .into(view.findViewById<ImageButton>(R.id.card_imagebutton_favorite)) //보여줄 위치
-//            newclothesList[position].like = false
-//        }
+    override fun onItemClothFavoriteClick(like: Boolean, id: Int, view: View, position: Int) {
+        if (id != 0) {
+            dressViewModel.set_dress_like_data(UpdateDressLikeDto(id))
+            dressViewModel.get_dress_like_data()
+
+            homeViewModel.get_home_data(
+                homeViewModel.home_latlng.value!!.first,
+                homeViewModel.home_latlng.value!!.second)
+
+//            update_islikedata_id = id
+//            update_list_position = position
+        }
     }
 }

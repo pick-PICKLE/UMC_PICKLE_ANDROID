@@ -16,8 +16,13 @@ class OrderCompleteFragment : BaseFragment<FragmentOrderCompleteBinding>(R.layou
     private fun initHomeButton(){
         with(binding){
             binding.goHomeButton.setOnClickListener{
-                val nextIntent = Intent(getActivity(), SecondActivity::class.java)
-                startActivity(nextIntent)
+//                val nextIntent = Intent(getActivity(), SecondActivity::class.java)
+//                startActivity(nextIntent)
+//                requireActivity().supportFragmentManager.beginTransaction()
+//                    .remove(requireActivity().supportFragmentManager.findFragmentByTag("clothblank")!!)
+//                    .commit()
+
+                requireActivity().finish()
 //                parentFragmentManager.beginTransaction()
 //                    .replace(R.id.clothblank_layout, HomeBaseFragment())
 //                    .addToBackStack(null)

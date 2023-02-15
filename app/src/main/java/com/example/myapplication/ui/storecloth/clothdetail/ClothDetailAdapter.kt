@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.databinding.ItemClothdetailViewpagerBinding
+import com.example.myapplication.db.remote.model.order.ClothOrderData
 
 class ClothDetailAdapter() :
     ListAdapter<String, ClothDetailAdapter.MyViewHolder>(DressDetailDiffUtil) {

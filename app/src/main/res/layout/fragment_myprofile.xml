@@ -23,21 +23,18 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/myprofile_toolbar">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:clickable="true"
                 android:id="@+id/myprofile_image_photo"
                 android:layout_width="112dp"
                 android:layout_height="112dp"
                 android:layout_marginTop="56dp"
-                android:src="@drawable/ic_baseline_notifications_none_24"
-                app:civ_border_color="@color/black"
-                app:civ_border_overlay="true"
-                app:civ_border_width="1dp"
+                android:clickable="true"
+                android:src="@drawable/icon_myprofile_profileimage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +46,7 @@
                 android:layout_height="24dp"
 
                 android:background="@drawable/camera_background"
-                android:src="@drawable/icon_myprofile_camera"
+                android:src="@drawable/icon_profile_camera"
                 app:civ_border_color="#A4A4A4"
                 app:civ_border_overlay="true"
                 app:civ_border_width="1dp"
@@ -66,10 +63,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="40dp"
+                android:text="이름"
+                android:textColor="#1E1E1E"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                android:textColor="#1E1E1E"
-                android:text="이름"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/myprofile_image_photo" />
 
@@ -77,12 +74,14 @@
                 android:id="@+id/myprofile_textview_name"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:layout_margin="14dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/edittext_background"
+                android:inputType="text"
+                android:maxLines="1"
                 android:padding="16dp"
-                android:textSize="14sp"
                 android:text="이름"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.571"
                 app:layout_constraintStart_toStartOf="parent"
@@ -93,11 +92,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
-                android:textStyle="bold"
-                android:textColor="#1E1E1E"
-                android:textSize="14sp"
                 android:layout_marginTop="41dp"
                 android:text="이메일"
+                android:textColor="#1E1E1E"
+                android:textSize="14sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/myprofile_textview_name" />
 
@@ -105,14 +104,34 @@
                 android:id="@+id/myprofile_textview_email"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:layout_margin="14dp"
+                android:layout_marginHorizontal="14dp"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/edittext_background"
+                android:inputType="text"
+                android:maxLines="1"
                 android:padding="16dp"
                 android:text="이메일"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/myprofile_textview2" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/myprofile_textview_savebutton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/logout_withdrawal_button_background2"
+                android:gravity="center"
+                android:text="저장"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

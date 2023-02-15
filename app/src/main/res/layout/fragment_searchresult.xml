@@ -9,16 +9,16 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:clickable="true"
-        tools:context=".ui.search.SearchresultFragment">
+        tools:context=".ui.search.result.SearchresultFragment">
 
         <TextView
-            android:textColor="@color/black"
             android:id="@+id/searchresult_textview_resultcount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="17dp"
             android:layout_marginTop="8dp"
             android:text="검색 결과 n개"
+            android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -26,13 +26,13 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/searchresult_textview_category"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:layout_marginStart="17dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/searchhistory_background"
             android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
             android:gravity="center"
-            android:padding="4dp"
+            android:paddingHorizontal="9dp"
             android:text="카테고리"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/searchresult_textview_sort"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:layout_marginEnd="16dp"
             android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
             android:gravity="center"

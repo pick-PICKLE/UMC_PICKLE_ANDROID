@@ -45,7 +45,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnM
     private var clickedMarker: Marker? = null // 클릭된 마커 변수
 
     override fun init() {
-        storeViewModel = ViewModelProvider(requireParentFragment()).get(StoreViewModel::class.java)
+        storeViewModel = ViewModelProvider(requireActivity()).get(StoreViewModel::class.java)
         // 지도 띄우기
         openMap()
 
@@ -88,7 +88,11 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnM
             // 지금 바운더리에서 새롭게 보여지는 Marker들은 추가한다.
             // 지금 바운더리로 새롭게 데이터 요청 *************
             // Retrofit 주변 매장 전체 데이터 가져와서 NowMarker 갱신
-            updateStore(naverMap.cameraPosition.target.latitude, naverMap.cameraPosition.target.longitude)
+            storeViewModel.set_screen_latlng(naverMap.cameraPosition.target.latitude,naverMap.cameraPosition.target.longitude)
+            updateStore(
+                naverMap.cameraPosition.target.latitude,
+                naverMap.cameraPosition.target.longitude
+            )
         }
 
         naverMap.setOnMapClickListener { pointF, latLng ->
@@ -255,7 +259,7 @@ class MapFragment : BaseFragment<FragmentMapBinding>(R.layout.fragment_map), OnM
                     .load(i.store_img) //이미지
                     .into(binding.mapImage) //보여줄 위치
 
-                if (i.store_like  == true) {
+                if (i.store_like == true) {
                     //화면에 보여주기
                     Glide.with(this@MapFragment)
                         .load(R.drawable.icon_favorite_filledpink) //이미지

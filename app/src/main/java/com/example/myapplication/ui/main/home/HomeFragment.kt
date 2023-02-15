@@ -1,91 +1,121 @@
 package com.example.myapplication.ui.main.home
 
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.res.Resources
+import android.graphics.drawable.Drawable
 import android.util.Log
+import android.view.View
+import android.widget.ImageView
+import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentHomeBinding
-import com.example.myapplication.db.remote.model.DressHomeDto
+import com.example.myapplication.db.remote.model.*
 import com.example.myapplication.ui.base.BaseFragment
-import com.example.myapplication.ui.main.ItemClickInterface
+import com.example.myapplication.ui.ItemCardClickInterface
 import com.example.myapplication.ui.main.home.newclothe.NewFragment
 import com.example.myapplication.ui.main.home.recent.HomeRecommendAdapter
 import com.example.myapplication.ui.main.home.recent.RecentFragment
 import com.example.myapplication.ui.storecloth.clothdetail.ClothActivity
 import com.example.myapplication.ui.storecloth.storedetail.StoreActivity
+import com.example.myapplication.viewmodel.DressViewModel
 import com.example.myapplication.viewmodel.HomeViewModel
+import com.example.myapplication.viewmodel.StoreViewModel
 import com.smarteist.autoimageslider.SliderView
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home), ItemClickInterface {
-    lateinit var homeViewModel: HomeViewModel
+class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
+    ItemCardClickInterface {
+    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var dressViewModel: DressViewModel
+    private lateinit var storeViewModel: StoreViewModel
 
-    lateinit var recentAdapter: HomeRecentAdapter
-    lateinit var newAdapter: HomeNewAdapter
-    lateinit var recommendAdapter: HomeRecommendAdapter
+    private lateinit var recentAdapter: HomeRecentAdapter
+    private lateinit var newAdapter: HomeNewAdapter
+    private lateinit var recommendAdapter: HomeRecommendAdapter
 
-    lateinit var imageList: ArrayList<Int>
+    private lateinit var imageList: ArrayList<Int>
+    private var recentData = ArrayList<DressOverviewDto>()
+    private var newData = ArrayList<DressOverviewDto>()
+    private var recommendData = ArrayList<DressOverviewDto>()
+    private var update_islikedata_id: Int? = null
+    private var update_list_position: Int? = null
 
     override fun init() {
         homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
+        dressViewModel = ViewModelProvider(requireActivity()).get(DressViewModel::class.java)
+        storeViewModel = ViewModelProvider(requireActivity()).get(StoreViewModel::class.java)
 
-//        homeViewModel.home_latlng.observe(this, Observer<Pair<Double,Double>>{
-//            if(homeViewModel.home_latlng.value != null){
-//                homeViewModel.get_home_data(homeViewModel.home_latlng.value!!.first, homeViewModel.home_latlng.value!!.second)
-//            }
-//        })
-
-        initAppbar(binding.homeToolbar, "홈",false,true)
+        initAppbar(binding.homeToolbar, "홈", false, true)
         initSlideView()
         initRecyclerView()
 
-        binding.button.setOnClickListener {
+        binding.homeTextviewRecentmore.setOnClickListener {
             parentFragmentManager
                 .beginTransaction()
                 .add(R.id.home_base_layout, RecentFragment(), "recent")
                 .addToBackStack(null)
                 .commitAllowingStateLoss()
-
+            homeViewModel.get_home_recent_data()
         }
 
-        binding.button2.setOnClickListener {
+        binding.homeTextviewNewmore.setOnClickListener {
             parentFragmentManager
                 .beginTransaction()
                 .replace(R.id.home_base_layout, NewFragment(), "new")
                 .addToBackStack(null)
                 .commitAllowingStateLoss()
+            homeViewModel.get_home_new_data(homeViewModel.home_latlng.value!!.first,homeViewModel.home_latlng.value!!.second)
         }
+
+//        dressViewModel.dress_like_data.observe(viewLifecycleOwner, Observer<List<DressLikeDto>> {
+////            recentAdapter.notifyDataSetChanged()
+////
+////            newAdapter.notifyDataSetChanged()
+////
+////            recommendAdapter.notifyDataSetChanged()
+//
+////            if (update_list_position != null) {
+////
+////                if ((recentData.size >= update_list_position!! +1) &&recentData[update_list_position!!].dress_id == update_islikedata_id) {
+////                    recentData[update_list_position!!].dress_like = !recentData[update_list_position!!].dress_like!!
+//////                    recentAdapter.submitList(recentData.toMutableList())
+//////                    recentAdapter.updateData(recentData)
+////                    recentAdapter.notifyItemChanged(update_list_position!!)
+////                } else if ((newData.size >= update_list_position!! +1) && newData[update_list_position!!].dress_id == update_islikedata_id) {
+////                    newData[update_list_position!!].dress_like = !newData[update_list_position!!].dress_like!!
+//////                    newAdapter.submitList(newData.toMutableList())
+////                    newAdapter.notifyItemChanged(update_list_position!!)
+////                } else if((recommendData.size >= update_list_position!! +1) && recommendData[update_list_position!!].dress_id == update_islikedata_id){
+////                    recommendData[update_list_position!!].dress_like = !recommendData[update_list_position!!].dress_like!!
+//////                    recommendAdapter.submitList(recommendData.toMutableList())
+////                    recommendAdapter.notifyItemChanged(update_list_position!!)
+////                }
+////                update_list_position = null
+////            }
+//        })
     }
 
 
     private fun initSlideView() {
         imageList = ArrayList()
-        imageList.add(R.drawable.img_2)
-        imageList.add(R.drawable.img_3)
-        imageList.add(R.drawable.img_4)
-        imageList.add(R.drawable.img_5)
-        imageList.add(R.drawable.img_6)
-        // on below line we are creating
-        // a variable for our slider view.
+        imageList.add(R.drawable.slider_home1)
+        imageList.add(R.drawable.slider_home2)
+        imageList.add(R.drawable.slider_home3)
+        imageList.add(R.drawable.slider_home4)
+        imageList.add(R.drawable.slider_home5)
         lateinit var sliderView: SliderView
         sliderView = binding.slider
-        // on below line we are creating
-        // a variable for our slider adapter.
         lateinit var sliderAdapter: SliderAdapter
         sliderAdapter = SliderAdapter(imageList)
         sliderView.autoCycleDirection = SliderView.LAYOUT_DIRECTION_LTR
-        // on below line we are setting adapter for our slider.
         sliderView.setSliderAdapter(sliderAdapter)
-        // on below line we are setting scroll time
-        // in seconds for our slider view.
         sliderView.scrollTimeInSec = 3
-        // on below line we are setting auto cycle
-        // to true to auto slide our items.
         sliderView.isAutoCycle = true
-        // on below line we are calling start
-        // auto cycle to start our cycle.
         sliderView.startAutoCycle()
     }
 
@@ -94,15 +124,48 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home), 
         newAdapter = HomeNewAdapter(this@HomeFragment)
         recommendAdapter = HomeRecommendAdapter(this@HomeFragment)
 
-        homeViewModel.home_data.observe(viewLifecycleOwner, Observer<DressHomeDto> { now_homeModel ->
-            if (now_homeModel != null) {
-                recentAdapter.submitList(now_homeModel.recentView?.toMutableList())
-                newAdapter.submitList(now_homeModel.newDresses?.toMutableList())
-                recommendAdapter.submitList(now_homeModel.recDresses?.toMutableList())
-            } else {
-                Log.d("whatisthis", "home_data, 없음")
-            }
-        })
+        homeViewModel.home_data.observe(
+            viewLifecycleOwner,
+            Observer<DressHomeDto> { now_homeModel ->
+                if (now_homeModel != null) {
+//                    newAdapter.submitList(null)
+//                    recommendAdapter.submitList(null)
+
+                    recentAdapter.submitList(now_homeModel.recentView!!.toMutableList())
+//                    recentAdapter.notifyDataSetChanged()
+                    newAdapter.submitList(now_homeModel.newDresses!!.toMutableList())
+//                    newAdapter.notifyDataSetChanged()
+                    recommendAdapter.submitList(now_homeModel.recDresses!!.toMutableList())
+//                    recommendAdapter.notifyDataSetChanged()
+
+
+//                    recentData = now_homeModel.recentView as ArrayList<DressOverviewDto>
+//                    newData = now_homeModel.newDresses as ArrayList<DressOverviewDto>
+//                    recommendData = now_homeModel.recDresses as ArrayList<DressOverviewDto>
+
+//                    recentAdapter.deleteData()
+//                    recentAdapter.updateData(now_homeModel.recentView as ArrayList<DressOverviewDto>)
+//                    recentAdapter.notifyDataSetChanged()
+
+//                    newAdapter.deleteData()
+//                    newAdapter.updateData(now_homeModel.newDresses as ArrayList<DressOverviewDto>)
+//                    newAdapter.notifyDataSetChanged()
+
+//                    recommendAdapter.deleteData()
+//                    recommendAdapter.updateData(now_homeModel.recDresses as ArrayList<DressOverviewDto>)
+//                    recommendAdapter.notifyDataSetChanged()
+
+                } else {
+                    Log.d("whatisthis", "home_data, 없음")
+//                    recentAdapter.deleteData()
+//                    newAdapter.deleteData()
+//                    recommendAdapter.deleteData()
+
+                    recentAdapter.submitList(null)
+                    newAdapter.submitList(null)
+                    recommendAdapter.submitList(null)
+                }
+            })
 
         binding.homeRecyclerviewRecent.apply {
             layoutManager =
@@ -123,7 +186,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home), 
 
     }
 
-    override fun onItemImageClick(id: Int, position: Int) {
+    override fun onItemClothImageClick(id: Int, position: Int) {
         val intent = Intent(getActivity(), ClothActivity::class.java)
         intent.putExtra("cloth_id", id)
         startActivity(intent)
@@ -135,35 +198,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home), 
         startActivity(intent)
     }
 
-    override fun onItemFavoriteClick(id: Int, position: Int) {
-//        if(view == view.findViewById<ImageButton>(R.id.card_imagebutton_favorite)){
-//            if (clothesList[position].like == false) {
-//                //화면에 보여주기
-//                Glide.with(this@HomeFragment)
-//                    .load(R.drawable.icon_favorite_filledpink) //이미지
-//                    .into(view.findViewById<ImageButton>(R.id.card_imagebutton_favorite)) //보여줄 위치
-//                clothesList[position].like = true
-//            } else {
-//                //화면에 보여주기
-//                Glide.with(this@HomeFragment)
-//                    .load(R.drawable.icon_favorite_whiteline) //이미지
-//                    .into(view.findViewById<ImageButton>(R.id.card_imagebutton_favorite)) //보여줄 위치
-//                clothesList[position].like = false
-//            }
-//        }else{
-//            if (newclothesList[position].like == false) {
-//                //화면에 보여주기
-//                Glide.with(this@HomeFragment)
-//                    .load(R.drawable.icon_favorite_filledpink) //이미지
-//                    .into(view.findViewById<ImageButton>(R.id.homecard_imagebutton_favorite)) //보여줄 위치
-//                newclothesList[position].like = true
-//            } else {
-//                //화면에 보여주기
-//                Glide.with(this@HomeFragment)
-//                    .load(R.drawable.icon_favorite_whiteline) //이미지
-//                    .into(view.findViewById<ImageButton>(R.id.homecard_imagebutton_favorite)) //보여줄 위치
-//                newclothesList[position].like = false
-//            }
-//        }
+    override fun onItemClothFavoriteClick(like: Boolean, id: Int, view: View, position: Int) {
+        if (id != 0) {
+            dressViewModel.set_dress_like_data(UpdateDressLikeDto(id))
+            dressViewModel.get_dress_like_data()
+
+//            homeViewModel.get_home_data(
+//                homeViewModel.home_latlng.value!!.first,
+//                homeViewModel.home_latlng.value!!.second)
+//            update_islikedata_id = id
+//            update_list_position = position
+        }
     }
+
+
 }

@@ -59,12 +59,13 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/button"
+                        android:id="@+id/home_textview_recentmore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_right_24"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
                         android:text="더보기"
+                        android:layout_marginEnd="16dp"
                         android:textColor="#0FAA59"
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/text"
@@ -77,6 +78,7 @@
                         android:layout_height="208dp"
                         android:layout_marginTop="20dp"
                         android:scrollbars="horizontal"
+                        android:overScrollMode="never"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/text" />
@@ -100,11 +102,12 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/button2"
+                        android:id="@+id/home_textview_newmore"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_right_24"
-                        android:gravity="center"
+                        android:gravity="center_vertical"
+                        android:layout_marginEnd="16dp"
                         android:text="더보기"
                         android:textColor="#0FAA59"
                         android:textSize="12sp"
@@ -118,6 +121,7 @@
                         android:layout_height="208dp"
                         android:layout_marginTop="20dp"
                         android:scrollbars="horizontal"
+                        android:overScrollMode="never"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/newtext" />

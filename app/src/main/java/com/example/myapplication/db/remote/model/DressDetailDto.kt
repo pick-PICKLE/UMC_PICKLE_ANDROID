@@ -9,6 +9,7 @@ data class DressDetailDto(
     var dress_option2: DressOptionDto? = DressOptionDto(),
     var dress_price: Int,
     var dress_stock: List<DressStockDto>? = listOf(),
+    var is_liked:Boolean,
     var store_id: Int,
     var store_name: String? = ""
 )

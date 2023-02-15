@@ -46,7 +46,8 @@
                         android:layout_marginStart="17dp"
                         android:text="주문번호"
                         android:textColor="#1E1E1E"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/detail_textview_ordernumber"
@@ -56,7 +57,9 @@
                         android:layout_marginStart="8dp"
                         android:text="11111111"
                         android:textColor="#1E1E1E"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -172,39 +175,22 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginHorizontal="17dp"
-                        android:layout_weight="1"
                         android:text="픽업 시간"
                         android:textColor="#1E1E1E"
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/detail_textview_pickupdate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="2023.01.28"
-                        android:textColor="#1E1E1E"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="/"
-                        android:textColor="#1E1E1E"
-                        android:textSize="14sp"
-
-                        />
-
-                    <TextView
-                        android:id="@+id/detail_textview_pickuptime"
+                        android:id="@+id/detail_textview_pickupdatetime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="16dp"
-                        android:text="14:00"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="2023.01.28"
                         android:textColor="#1E1E1E"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -216,11 +202,10 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginHorizontal="17dp"
-                        android:layout_weight="1"
                         android:text="요청 사항"
                         android:textColor="#1E1E1E"
                         android:textSize="16sp" />
@@ -230,7 +215,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="40dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_weight="1"
+                        android:gravity="end"
                         android:text="없음"
                         android:textColor="#5C5C5C"
                         android:textSize="14sp" />
@@ -238,7 +225,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="111dp"
+                    android:layout_height="80dp"
                     android:layout_marginTop="8dp"
                     android:background="@color/white"
                     android:orientation="horizontal">
@@ -248,10 +235,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="17dp"
                         android:layout_marginTop="16dp"
-                        android:layout_weight="1"
                         android:text="총 결제 금액"
                         android:textColor="#1E1E1E"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/detail_textview_totalprice"
@@ -259,11 +246,52 @@
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="15dp"
+                        android:layout_weight="1"
+                        android:gravity="end"
                         android:text="100,000원"
                         android:textColor="#1E1E1E"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:paddingBottom="31dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/cancel_button"
+                        android:layout_width="156dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/inquiry_background"
+                        android:gravity="center"
+                        android:text="주문 취소"
+                        android:textColor="#1E1E1E"
                         android:textSize="16sp" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/confirm_button"
+                        android:layout_width="156dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/inquiry_background"
+                        android:gravity="center"
+                        android:text="구매확정"
+                        android:textColor="#1E1E1E"
+
+                        android:textSize="16sp" />
+
+
                 </LinearLayout>
             </LinearLayout>
+
+
         </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

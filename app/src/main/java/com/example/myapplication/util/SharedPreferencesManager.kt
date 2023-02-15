@@ -3,7 +3,7 @@ package com.example.myapplication.util
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.myapplication.ApplicationClass.Companion.SERVER_TOKEN
-import com.example.myapplication.ui.search.SearchHistroyData
+import com.example.myapplication.db.remote.model.search.SearchHistroyData
 import com.example.myapplication.ApplicationClass.Companion.SHARED_SEARCH_HISTORY
 import com.google.gson.Gson
 

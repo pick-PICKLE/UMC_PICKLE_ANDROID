@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="160dp"
+    android:layout_height="215dp"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="12dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_cardview_frame"
+        android:layout_width="152dp"
+        android:layout_height="152dp"
+        android:layout_margin="4dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="7dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/card_imageview_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#D9D9D9"
+            android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:id="@+id/card_imageview_favorite"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="14dp"
+        android:background="@android:color/transparent"
+        android:elevation="10dp"
+        android:paddingHorizontal="2dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="2.52dp"
+        android:src="@drawable/icon_favorite_whiteline"
+        app:layout_constraintBottom_toBottomOf="@+id/card_cardview_frame"
+        app:layout_constraintEnd_toEndOf="@+id/card_cardview_frame" />
+
+
+    <TextView
+        android:id="@+id/card_textview_clothename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLength="12"
+        android:text="옷이름"
+        android:textColor="#1E1E1E"
+        android:textSize="14dp"
+        app:layout_constraintStart_toStartOf="@+id/card_cardview_frame"
+        app:layout_constraintTop_toBottomOf="@+id/card_cardview_frame" />
+
+    <TextView
+        android:id="@+id/card_textview_clothediscount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginVertical="4dp"
+        android:text="0%"
+        android:textColor="#D34E8E"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/card_cardview_frame"
+        app:layout_constraintTop_toBottomOf="@+id/card_textview_clothename" />
+
+    <TextView
+        android:id="@+id/card_textview_clotheprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginVertical="4dp"
+        android:text="가격"
+        android:textColor="#1E1E1E"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/card_textview_clothediscount"
+        app:layout_constraintStart_toEndOf="@+id/card_textview_clothediscount"
+        app:layout_constraintTop_toTopOf="@+id/card_textview_clothediscount" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

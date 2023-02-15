@@ -4,17 +4,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.myapplication.databinding.ItemOrderstatusRecyclerBinding
+import com.example.myapplication.db.remote.model.DressOrderListDto
 
 class OrderstatusAdapter(clicklistener: OrderstatusAdapter.OrderstatusClickListener) :
     RecyclerView.Adapter<OrderstatusAdapter.ViewHolder>() {
 
-    var userList: ArrayList<OrderedClotheData>? = null
+    var userList = ArrayList<DressOrderListDto>()
 
     interface OrderstatusClickListener {
+
         fun onItemImageClick(view: View, position: Int)
-        fun onItemDetailClick(view: View, position: Int)
-        fun onItemInnerlayoutClick(view: View, position: Int)
+        fun onItemDetailClick(reservationid: Int, position: Int)
+        fun onItemInnerlayoutClick(reservationid: Int, position: Int)
     }
 
     var clicklistener: OrderstatusAdapter.OrderstatusClickListener = clicklistener
@@ -42,10 +45,10 @@ class OrderstatusAdapter(clicklistener: OrderstatusAdapter.OrderstatusClickListe
     inner class ViewHolder(val binding: ItemOrderstatusRecyclerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun setUser(user: OrderedClotheData?) {
+        fun setUser(user: DressOrderListDto?) {
             with(binding) {
                 orderstatusInnerlayout.setOnClickListener {
-                    clicklistener.onItemInnerlayoutClick(it, absoluteAdapterPosition)
+                    clicklistener.onItemInnerlayoutClick(user!!.dress_reservation_id, absoluteAdapterPosition)
                 }
 
                 orderstatusImageProduct.setOnClickListener {
@@ -53,13 +56,15 @@ class OrderstatusAdapter(clicklistener: OrderstatusAdapter.OrderstatusClickListe
                 }
 
                 orderstatusTextviewDetail.setOnClickListener {
-                    clicklistener.onItemDetailClick(it, absoluteAdapterPosition)
+                    clicklistener.onItemDetailClick(user!!.dress_reservation_id, absoluteAdapterPosition)
                 }
-
-                orderstatusTextviewDate.text = user?.orderdate
-                orderstatusTextviewMarketname.text = user?.ordermarketname
-                orderstatusTextviewClothename.text = user?.orderclothename
-                orderstatusTextviewClotheprice.text = user?.orderclotheprice
+                Glide.with(this@ViewHolder.itemView)
+                    .load(user?.dress_image_url)
+                    .into(orderstatusImageProduct)
+                orderstatusTextviewDate.text = user?.order_time
+                orderstatusTextviewMarketname.text = user?.store_name
+                orderstatusTextviewClothename.text = user?.dress_name
+                orderstatusTextviewClotheprice.text = user?.price
             }
         }
     }

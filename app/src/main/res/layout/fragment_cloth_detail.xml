@@ -17,70 +17,118 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <FrameLayout
-            android:id="@+id/clothdetail_innerlayout_frame"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="360dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/clothdetail_innerlayout_bottom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/clothdetail_toolbar">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/clothdetail_viewpager"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="#F4F6F8"
+                android:orientation="vertical">
 
-            <me.relex.circleindicator.CircleIndicator3
-                android:id="@+id/clothdetail_indicator"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_gravity="bottom" />
-        </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/clothdetail_innerlayout_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="360dp"
+                    android:background="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clothdetail_toolbar">
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/clothdetail_viewpager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                    <me.relex.circleindicator.CircleIndicator3
+                        android:id="@+id/clothdetail_indicator"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_gravity="bottom" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="15dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/clothdetail_innerlayout_frame">
+
+                    <TextView
+                        android:id="@+id/clothdetail_textview_storename"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="매장명"
+                        android:textColor="#5C5C5C"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/clothdetail_textview_clothname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="옷 이름"
+                        android:textColor="#1E1E1E"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/clothdetail_textview_clothprice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="50,000원"
+                        android:textColor="#1E1E1E"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:text="상품정보"
+                    android:textColor="#767676"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/clothdetail_textview_contents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="68dp"
+                    android:text="코멘트"
+                    android:textColor="#1E1E1E"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </ScrollView>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="104dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="12dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clothdetail_innerlayout_frame">
-
-            <TextView
-                android:id="@+id/clothdetail_textview_storename"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="매장명"
-                android:textColor="#5C5C5C"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/clothdetail_textview_clothname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="옷 이름"
-                android:textColor="#1E1E1E"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/clothdetail_textview_clothprice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="50,000원"
-                android:textColor="#1E1E1E"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <LinearLayout
+            android:id="@+id/clothdetail_innerlayout_bottom"
             android:layout_width="match_parent"
             android:layout_height="71dp"
             android:orientation="horizontal"
@@ -90,11 +138,13 @@
 
             <ImageView
                 android:id="@+id/clothdetail_imageview_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
-                android:src="@drawable/button_favorite" />
+                android:background="@drawable/favorite_background"
+                android:padding="14dp"
+                android:src="@drawable/icon_favorite_line" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/clothdetail_textview_order"

@@ -5,12 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ItemSearchhistoryRecyclerBinding
+import com.example.myapplication.db.remote.model.search.SearchHistroyData
 
 class SearchhistoryAdapter(val clicklistener: ItemClickListener) :
     RecyclerView.Adapter<SearchhistoryAdapter.ViewHolder>() {
 
     interface ItemClickListener {
-        fun onTextItemClick(view: View, position: Int)
+        fun onTextItemClick(searchhistory:String, position: Int)
         fun onImageItemClick(view: View, position: Int)
     }
 
@@ -31,7 +32,7 @@ class SearchhistoryAdapter(val clicklistener: ItemClickListener) :
         holder.setUser(user)
 
         holder.binding.searchhistoryLayoutDetail.setOnClickListener {
-            clicklistener.onTextItemClick(it, position)
+            clicklistener.onTextItemClick(user!!.searchhistory.toString(), position)
         }
 
         holder.binding.searchhistoryImageDelete.setOnClickListener {
@@ -40,7 +41,7 @@ class SearchhistoryAdapter(val clicklistener: ItemClickListener) :
     }
 
     override fun getItemCount(): Int {
-        return userList?.size?.let { Math.min(it, 10) }?: 0
+        return userList?.size?.let { Math.min(it, 10) } ?: 0
     }
 
     inner class ViewHolder(val binding: ItemSearchhistoryRecyclerBinding) :

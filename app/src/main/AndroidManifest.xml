@@ -16,7 +16,8 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/app_launcher_icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication">
+        android:theme="@style/Theme.MyApplication"
+        android:usesCleartextTraffic="true">
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="b2kjcldcq0" /> <!-- 처음 시작하는 화면을 설정 -->

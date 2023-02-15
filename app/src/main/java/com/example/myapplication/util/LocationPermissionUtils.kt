@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.main
+package com.example.myapplication.util
 
 import android.Manifest
 import android.content.Context
@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Build
 import android.provider.Settings
-import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat

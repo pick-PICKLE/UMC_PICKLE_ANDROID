@@ -29,7 +29,10 @@ class OrderBottomSheetFragment() :
     private var checkedTwoButton = ArrayList<Boolean>()
 
     private lateinit var selectedcolor: String
+    private var selectedcolornum: Int = 0
+
     private lateinit var selectedsize: String
+    private var selectedsizenum: Int = 0
 
     private var orderdatalist = ArrayList<ClothOrderData>()
 
@@ -40,6 +43,8 @@ class OrderBottomSheetFragment() :
 
     private var spinnercolorlist = ArrayList<String>()
     private var spinnersizelist = ArrayList<String>()
+    private var spinnercolornumlist = ArrayList<Integer>()
+    private var spinnersizenumlist = ArrayList<Integer>()
     private var selectedPrice: Int = 0
 
 
@@ -65,11 +70,15 @@ class OrderBottomSheetFragment() :
         spinnerColor = binding.orderSpinnerColor
         spinnerSize = binding.orderSpinnerSize
         spinnercolorlist.add("색상")
+        spinnercolornumlist.add(Integer(0))
         spinnersizelist.add("사이즈")
+        spinnersizenumlist.add(Integer(0))
         // 스피너 목록 불러오기
         if(optiondata != null){
             for( i in optiondata?.dress_option1?.dress_option_detail_list!!){
                 spinnercolorlist.add(i.dress_option_detail_name)
+                spinnercolornumlist.add(i.dress_option_detail_id)
+
             }
         }
 
@@ -77,6 +86,7 @@ class OrderBottomSheetFragment() :
         if(optiondata != null){
             for( i in optiondata?.dress_option2?.dress_option_detail_list!!){
                 spinnersizelist.add(i.dress_option_detail_name)
+                spinnersizenumlist.add(i.dress_option_detail_id)
             }
         }
 
@@ -104,7 +114,7 @@ class OrderBottomSheetFragment() :
                     buttonOnOff(false)
                 }
             } else {
-                Log.d("whatisthis", "11네트워크 오류가 발생했습니다.")
+                Log.d("whatisthis", "order_data, 데이터 없음")
             }
         })
 
@@ -127,8 +137,9 @@ class OrderBottomSheetFragment() :
                 } else {
                     checkedTwoButton[0] = true
                     selectedcolor = spinnercolorlist[position]
+                    selectedcolornum = spinnercolornumlist[position].toInt()
                     if (checkedTwoButton[0] == true && checkedTwoButton[1] == true) {
-                        orderdatalist.add(ClothOrderData(selectedcolor, selectedsize, 1, selectedPrice))
+                        orderdatalist.add(ClothOrderData(selectedcolor, selectedsize, 1, selectedPrice, selectedcolornum, selectedsizenum))
                         orderViewModel.set_order_data(orderdatalist)
                     }
                 }
@@ -161,8 +172,9 @@ class OrderBottomSheetFragment() :
                 } else {
                     checkedTwoButton[1] = true
                     selectedsize = spinnersizelist[position]
+                    selectedsizenum = spinnersizenumlist[position].toInt()
                     if (checkedTwoButton[0] == true && checkedTwoButton[1] == true) {
-                        orderdatalist.add(ClothOrderData(selectedcolor, selectedsize, 1, selectedPrice))
+                        orderdatalist.add(ClothOrderData(selectedcolor, selectedsize, 1, selectedPrice, selectedcolornum, selectedsizenum))
                         orderViewModel.set_order_data(orderdatalist)
                     }
                 }

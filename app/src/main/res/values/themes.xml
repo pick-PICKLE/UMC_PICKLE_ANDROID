@@ -41,4 +41,16 @@
         <item name="android:background">@drawable/logout_withdrawal_background</item>
     </style>
 
+<<<<<<< HEAD
+=======
+    <style name="DatePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="buttonBarPositiveButtonStyle">@style/TextButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/TextButton</item>
+    </style>
+
+    <style name="TextButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/teal_700</item>
+    </style>
+>>>>>>> bfa5c415305a6407c7f3d7d6cb81051256a4dbfb
 </resources>

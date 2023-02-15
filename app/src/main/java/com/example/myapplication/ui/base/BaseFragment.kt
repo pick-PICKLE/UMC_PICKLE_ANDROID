@@ -2,6 +2,7 @@ package com.example.myapplication.ui.base
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -10,10 +11,15 @@ import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ToolbarBinding
 import com.example.myapplication.ui.search.SearchActivity
+import com.example.myapplication.viewmodel.DressViewModel
+import com.example.myapplication.viewmodel.HomeViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.naver.maps.geometry.LatLng
 
 abstract class BaseFragment<T : ViewDataBinding>(
     @LayoutRes val layoutResId: Int
@@ -23,12 +29,16 @@ abstract class BaseFragment<T : ViewDataBinding>(
 
     // 뒤로가기 버튼을 눌렀을 때를 위한 callback 변수
     private lateinit var callback: OnBackPressedCallback
+    private lateinit var homeViewModel: HomeViewModel
 
     // 툴바 변수들
     protected lateinit var toolbar: Toolbar
     protected lateinit var toolbarmenusearch: MenuItem
     protected lateinit var toolbarmenunotification: MenuItem
 
+    // 검색시 필요한 위경도 데이터 Default 값(홍대)
+    protected var lat : Double = 37.5581
+    protected var lng : Double = 126.9260
 
     protected open fun savedatainit(){
     }
@@ -73,10 +83,14 @@ abstract class BaseFragment<T : ViewDataBinding>(
     }
 
     protected fun initSubAppbar(name: String, backbtn: Boolean, item: Boolean) {
-        toolbar.setTitle(name)
+        if(name == "홈"){
+            toolbar.setLogo(R.drawable.icon_logo8)
+        }else{
+            toolbar.setTitle(name)
+        }
         if (backbtn) {
             // 뒤로가기 버튼 추가
-            toolbar.setNavigationIcon(R.drawable.ic_baseline_arrow_back_ios_new_24)
+            toolbar.setNavigationIcon(R.drawable.icon_appbar)
         } else {
             // 뒤로가기 버튼 지우기
             toolbar.setNavigationIcon(null)
@@ -112,6 +126,7 @@ abstract class BaseFragment<T : ViewDataBinding>(
 
         toolbarmenusearch.setOnMenuItemClickListener {
             val intent = Intent(requireContext(), SearchActivity::class.java)
+            intent.putExtra("lat_lng", Pair(lat,lng))
             startActivity(intent)
             true
         }
@@ -135,7 +150,17 @@ abstract class BaseFragment<T : ViewDataBinding>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
+        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
         init()
+        // 검색시 필요한 데이터
+        homeViewModel.home_latlng.observe(viewLifecycleOwner, Observer<Pair<Double, Double>> {
+            if (it != null) {
+                this.lat = it.first
+                this.lng = it.second
+            } else {
+                Log.d("whatisthis", "lat_lng, 데이터 없음")
+            }
+        })
 //        backpress() -> 백 버튼을 baseFragment에 넣으면 baseFragment를 상속하는 fragment들을 호출할 때마다 back callback이 초기화 된다.
         // 그래서 backbutton 이벤트 처리시 사용되는 toolbarmenusearch 변수가 초기화 되어 있지 않아 에러를 발생하게 된다.
         // parentFragment에서 한번만 초기화되면 되므로 backpress()메소드를 parentFragment에서 한번만 호출하는 initAppbar()메소드 안에 넣는다.

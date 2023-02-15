@@ -1,6 +1,6 @@
 package com.example.myapplication.db.remote.model
 
 data class UpdateDressLikeDto(
-    val dress_id: Int,
-    val user_id: Int
+    var dress_id: Int,
+    var is_like: Boolean?=false
 )

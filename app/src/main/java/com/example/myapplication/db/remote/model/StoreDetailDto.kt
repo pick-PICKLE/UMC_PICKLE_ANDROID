@@ -2,6 +2,7 @@ package com.example.myapplication.db.remote.model
 
 data class StoreDetailDto(
     var hours_of_operation: String? = null,
+    var is_liked : Boolean ?= false,
     var storeId: Int,
     var store_address: String? = null,
     var store_dress_list: List<DressBriefInStoreDTO>? = null,

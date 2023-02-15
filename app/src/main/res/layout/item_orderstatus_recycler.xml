@@ -8,6 +8,8 @@
 
 
     <TextView
+        android:textStyle="bold"
+        android:textColor="#1E1E1E"
         android:id="@+id/orderstatus_textview_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,7 +62,9 @@
     <LinearLayout
         android:id="@+id/orderstatus_innerlayout"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="23dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:orientation="vertical"
@@ -75,6 +79,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="매장명"
+            android:layout_weight="1"
+            android:textSize="14sp"
+            android:textColor="#1E1E1E"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -82,6 +89,10 @@
             android:id="@+id/orderstatus_textview_clothename"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#5C5C5C"
+            android:layout_weight="1"
+
             android:text="옷이름"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -89,6 +100,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:textSize="14sp"
+            android:gravity="bottom"
+            android:layout_weight="1"
+            android:textColor="#1E1E1E"
+            android:textStyle="bold"
             android:id="@+id/orderstatus_textview_clotheprice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

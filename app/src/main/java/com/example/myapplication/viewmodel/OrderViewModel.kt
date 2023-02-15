@@ -14,7 +14,7 @@ class OrderViewModel : ViewModel() {
     private var _option_data = MutableLiveData<ClothOptionData>()
     val option_data: LiveData<ClothOptionData> get() = _option_data
 
-    fun set_order_data(clothorderdatalist:ArrayList<ClothOrderData>) {
+    fun set_order_data(clothorderdatalist:ArrayList<ClothOrderData>?) {
         _order_data.value = clothorderdatalist
     }
 

@@ -1,13 +1,10 @@
 package com.example.myapplication.db.remote
 
 import retrofit2.Call
-import android.util.Log
 import com.example.myapplication.ApplicationClass
 import com.example.myapplication.db.remote.model.DressDetailDto
 import com.example.myapplication.db.remote.model.DressReservationDto
-import com.example.myapplication.db.remote.model.UpdateDressLikeDto
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.myapplication.db.remote.model.ResultOfSetDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -20,7 +17,7 @@ object ReservationService {
         @POST("dresses/reservation")
         fun set_dresses_reservation(
             @Body dressReservationDto: DressReservationDto
-        ): Call<DressDetailDto>
+        ): Call<ResultOfSetDto>
 
         @GET("dresses/reservation/{id}")
         fun get_dresses_reservation(

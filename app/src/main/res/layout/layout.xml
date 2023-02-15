@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:menu="@menu/menu_appbar"
-    app:logo="@drawable/img_7"
+    app:logo="@drawable/icon_logo2"
     >
 
 </androidx.appcompat.widget.Toolbar>
